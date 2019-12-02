@@ -6,10 +6,100 @@ const User = require("../models/User");
 const Shop = require("../models/Shop");
 
 //Route 1 - CREATE *************************************************** :
-router.get("/user/create", async (req, res) => {
-  console.log("ok route create user");
-  res.json("Ok Route User");
+router.post("/user/create", async (req, res) => {
+  try {
+    let username = req.fields.username;
+    let email = req.fields.email;
+    let password = req.fields.password;
+    let cityUser = req.fields.city;
+    let photoUser = req.fields.photoUser;
+    let name = req.fields.name;
+    let surname = req.fields.surname;
+    let birth_Year = req.fields.birth_Year;
 
-  //   dans postman : http://localhost:4000/user/create
+    const newUser = await User({
+      username: username,
+      email: email,
+      password: password,
+      cityUser: cityUser,
+      photoUser: photoUser,
+      name: name,
+      surname: surname,
+      birth_Year: birth_Year
+    });
+
+    await newUser.save();
+    return res.json(newUser);
+  } catch (error) {
+    console.log(error.message);
+    res.json({ message: error.message });
+  }
 });
+
+//   dans postman : http://localhost:4000/user/create
+
+//Route 2 - READ *************************************************** :
+router.get("/user/read", async (req, res) => {
+  try {
+    let id = req.query.id; // localhost:4000/user/read?id=5de4eaf416de5d0944849a94
+
+    const userToFind = await User.findById(id);
+    return res.json(userToFind);
+  } catch (error) {
+    console.log(error.message);
+    res.json({ message: error.message });
+  }
+});
+
+// dans postman : http://localhost:4000/user/read?id=5de4eaf416de5d0944849a94
+
+//Route 3 - UPDATE *************************************************** :
+router.post("/user/update", async (req, res) => {
+  try {
+    let id = req.query.id;
+    let username = req.fields.username;
+    let email = req.fields.email;
+    let password = req.fields.password;
+    let cityUser = req.fields.city;
+    let photoUser = req.fields.photoUser;
+    let name = req.fields.name;
+    let surname = req.fields.surname;
+    let birth_Year = req.fields.birth_Year;
+
+    let userToUpdate = await User.findById(id);
+
+    if (username) {
+      userToUpdate.username = username;
+    }
+    if (email) {
+      userToUpdate.email = email;
+    }
+    if (password) {
+      userToUpdate.password = password;
+    }
+    if (cityUser) {
+      userToUpdate.cityUser = cityUser;
+    }
+    if (photoUser) {
+      userToUpdate.photoUser = photoUser;
+    }
+    if (name) {
+      userToUpdate.name = name;
+    }
+    if (surname) {
+      userToUpdate.surname = surname;
+    }
+    if (birth_Year) {
+      userToUpdate.birth_Year = birth_Year;
+    }
+    await userToUpdate.save();
+    return res.json(userToUpdate);
+  } catch (error) {
+    console.log(error.message);
+    res.json({ message: error.message });
+  }
+});
+
+// dans postman : http://localhost:4000/user/update?id=5de4eaf416de5d0944849a94
+
 module.exports = router;

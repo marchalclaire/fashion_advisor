@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const Shop = mongoose.model("Shop", {
   title: String,
   description: String,
-  country: String,
-  // photos: String,
+  city: String,
+  photos: String,
   category: String,
   //   category: {
   //     type: mongoose.Schema.Types.ObjectId,
