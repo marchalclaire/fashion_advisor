@@ -33,8 +33,8 @@ router.post("/shop/create", async (req, res) => {
 
 //   dans postman : http://localhost:4000/shop/create
 
-//Route 2 - READ *************************************************** :
-router.get("/shop/read", async (req, res) => {
+//Route 2 - READ ALL *************************************************** :
+router.get("/shop/readall", async (req, res) => {
   try {
     const shop = await Shop.find();
     res.json(shop);
@@ -44,9 +44,26 @@ router.get("/shop/read", async (req, res) => {
   }
 });
 
-//   dans postman : http://localhost:4000/shop/read
+//créer une route read avec id et celle dessus à nommer read all.
 
-//Route 3 - UPDATE ***************************************************OK :
+//   dans postman : http://localhost:4000/shop/readall
+
+//Route 2 bis - READ BY ID *************************************************** :
+router.get("/shop/read", async (req, res) => {
+  try {
+    let id = req.query.id; // localhost:4000/shop/read?id=5de4dfa5221f7007d1bdb604
+
+    const shopToFind = await Shop.findById(id);
+    return res.json(shopToFind);
+  } catch (error) {
+    console.log(error.message);
+    res.json({ message: error.message });
+  }
+});
+
+// dans postman : http://localhost:4000/shop/read?id=5de4dfa5221f7007d1bdb604
+
+//Route 3 - UPDATE BY ID ***************************************************OK :
 router.post("/shop/update", async (req, res) => {
   try {
     let idToFind = req.query.id; //si on veut noter query, mettre dans postman localhost:4000/shop/update?id=5de4dfa5221f7007d1bdb604

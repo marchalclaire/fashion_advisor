@@ -38,7 +38,7 @@ router.post("/user/create", async (req, res) => {
 
 //   dans postman : http://localhost:4000/user/create
 
-//Route 2 - READ *************************************************** :
+//Route 2 - READ BY ID *************************************************** :
 router.get("/user/read", async (req, res) => {
   try {
     let id = req.query.id; // localhost:4000/user/read?id=5de4eaf416de5d0944849a94
@@ -53,7 +53,7 @@ router.get("/user/read", async (req, res) => {
 
 // dans postman : http://localhost:4000/user/read?id=5de4eaf416de5d0944849a94
 
-//Route 3 - UPDATE *************************************************** :
+//Route 3 - UPDATE BY ID *************************************************** :
 router.post("/user/update", async (req, res) => {
   try {
     let id = req.query.id;
