@@ -6,6 +6,7 @@ const Shop = mongoose.model("Shop", {
   city: String,
   photos: String,
   category: String,
+  date: String,
   //   category: {
   //     type: mongoose.Schema.Types.ObjectId,
   //     ref: "Category"

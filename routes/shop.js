@@ -13,6 +13,7 @@ router.post("/shop/create", async (req, res) => {
     let city = req.fields.city;
     let photos = req.fields.photos;
     let category = req.fields.category;
+    let date = req.fields.date;
     let averageRating = req.fields.averageRating;
 
     const newShop = new Shop({
@@ -21,6 +22,7 @@ router.post("/shop/create", async (req, res) => {
       city: city,
       photos: photos,
       category: category,
+      date: date,
       averageRating: averageRating
     });
     await newShop.save();
@@ -72,6 +74,7 @@ router.post("/shop/update", async (req, res) => {
     let city = req.fields.city;
     let photos = req.fields.photos;
     let category = req.fields.category;
+    let date = req.fields.date;
     let averageRating = req.fields.averageRating;
 
     const updatedShop = await Shop.findOne({
@@ -91,6 +94,12 @@ router.post("/shop/update", async (req, res) => {
     }
     if (category) {
       updatedShop.category = category;
+    }
+    if (date) {
+      updatedShop.date = date;
+    }
+    if (averageRating) {
+      updatedShop.averageRating = averageRating;
     }
 
     await updatedShop.save();
