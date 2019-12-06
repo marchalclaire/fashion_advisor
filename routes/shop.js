@@ -35,10 +35,13 @@ router.post("/shop/create", async (req, res) => {
 
 //   dans postman : http://localhost:4000/shop/create
 
-//Route 2 - READ ALL *************************************************** :
-router.get("/shop/readall", async (req, res) => {
+//Route 2 - FIND SHOPS *************************************************** :
+
+router.post("/shop/findshops", async (req, res) => {
   try {
-    const shop = await Shop.find();
+    //paramètre maxNumber récupéré du front (page Home appel Axios) :
+    let maxNumber = req.fields.maxNumber;
+    const shop = await Shop.find().limit(maxNumber);
     res.json(shop);
   } catch (error) {
     console.log(error.message);
@@ -46,9 +49,7 @@ router.get("/shop/readall", async (req, res) => {
   }
 });
 
-//créer une route read avec id et celle dessus à nommer read all.
-
-//   dans postman : http://localhost:4000/shop/readall
+//   dans postman : http://localhost:4000/shop/findshops
 
 //Route 2 bis - READ BY ID *************************************************** :
 router.get("/shop/read", async (req, res) => {
