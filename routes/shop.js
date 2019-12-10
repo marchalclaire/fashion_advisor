@@ -39,9 +39,25 @@ router.post("/shop/create", async (req, res) => {
 
 router.post("/shop/findshops", async (req, res) => {
   try {
-    //paramètre maxNumber récupéré du front (page Home appel Axios) :
-    let maxNumber = req.fields.maxNumber;
-    const shop = await Shop.find().limit(maxNumber);
+    //paramètre limit et skip récupéré du front (page Home appel Axios) :
+    let skip = req.fields.skip; // pour la pagination (combien d'éléments tu zappes)
+    let limit = req.fields.limit; // nombre max d'éléments retournés par page
+    let averageRating = req.fields.averageRating;
+    let city = req.fields.city;
+
+    //on crée un objet filtre :
+    let filters = {};
+
+    //si on reçoit du Front averageRating (cela signifie qu'on est sur la page "coup de coeur") :
+    if (averageRating) {
+      filters.averageRating = { $gte: averageRating }; // on ajoute la clé averageRating à l'objet "filters" ($gte est un query operator qui signifie >=)
+    } else if (city) {
+      filters.city = { $eq: city };
+    }
+    console.log(filters);
+    const shop = await Shop.find(filters)
+      .skip(skip)
+      .limit(limit);
     res.json(shop);
   } catch (error) {
     console.log(error.message);
