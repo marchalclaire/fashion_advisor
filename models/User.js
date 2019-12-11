@@ -7,8 +7,7 @@ const User = mongoose.model("User", {
   cityUser: String,
   photoUser: String,
   name: String,
-  surname: String,
-  birth_Year: Number
+  surname: String
 });
 
 module.exports = User;

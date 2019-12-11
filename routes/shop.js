@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 //on importe des modèles :
-
+const User = require("../models/User");
+const Review = require("../models/Review");
 const Shop = require("../models/Shop");
 
 //Route 1 - CREATE *************************************************** :

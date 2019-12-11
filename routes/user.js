@@ -3,6 +3,7 @@ const router = express.Router();
 
 //on importe des modèles :
 const User = require("../models/User");
+const Review = require("../models/Review");
 const Shop = require("../models/Shop");
 
 //Route 1 - CREATE *************************************************** :
@@ -11,11 +12,10 @@ router.post("/user/create", async (req, res) => {
     let username = req.fields.username;
     let email = req.fields.email;
     let password = req.fields.password;
-    let cityUser = req.fields.city;
+    let cityUser = req.fields.cityUser;
     let photoUser = req.fields.photoUser;
     let name = req.fields.name;
     let surname = req.fields.surname;
-    let birth_Year = req.fields.birth_Year;
 
     const newUser = await User({
       username: username,
@@ -24,8 +24,7 @@ router.post("/user/create", async (req, res) => {
       cityUser: cityUser,
       photoUser: photoUser,
       name: name,
-      surname: surname,
-      birth_Year: birth_Year
+      surname: surname
     });
 
     await newUser.save();
@@ -64,7 +63,6 @@ router.post("/user/update", async (req, res) => {
     let photoUser = req.fields.photoUser;
     let name = req.fields.name;
     let surname = req.fields.surname;
-    let birth_Year = req.fields.birth_Year;
 
     let userToUpdate = await User.findById(id);
 
@@ -89,9 +87,7 @@ router.post("/user/update", async (req, res) => {
     if (surname) {
       userToUpdate.surname = surname;
     }
-    if (birth_Year) {
-      userToUpdate.birth_Year = birth_Year;
-    }
+
     await userToUpdate.save();
     return res.json(userToUpdate);
   } catch (error) {
